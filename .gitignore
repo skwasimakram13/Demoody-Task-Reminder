@@ -1,0 +1,5 @@
+assets/
+dist/
+node_modules/
+vs_BuildTools.exe
+tasks.db

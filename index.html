@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Demoody Task Reminder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f3f4f6;
+      color: #111;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+    .top-nav {
+      display: flex;
+      background-color: #007bff;
+      padding: 10px;
+      gap: 10px;
+      border-radius: 0 0 10px 10px;
+    }
+
+    .top-nav button {
+      background: white;
+      color: #007bff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .top-nav button:hover {
+      background: #b3b5b4;
+      color: #0663c7;
+    } 
+
+    .top-nav button.active {
+      background: #0056b3;
+      color: white;
+    }
+
+    .section {
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      padding-top: 15px;
+    }
+
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+
+    input, textarea, button {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    #taskList {
+      background: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.05);
+    }
+
+    .task-item {
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .task-item:last-child {
+      border-bottom: none;
+    }
+
+    .task-title {
+      font-weight: bold;
+      color: #333;
+    }
+
+    .task-datetime {
+      color: #888;
+      font-size: 0.9em;
+    }
+
+    .settings {
+      margin: 20px 0;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      background-color: #f8f9fa;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .settings label {
+      display: block;
+      font-size: 16px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .settings select {
+      width: 100%;
+      padding: 10px;
+      font-size: 15px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      background-color: #fff;
+      appearance: none;
+      outline: none;
+      transition: border-color 0.3s ease;
+      background-image: url('data:image/svg+xml;utf8,<svg fill="gray" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 18px 18px;
+      padding-right: 35px;
+    }
+
+    .settings select:focus {
+      border-color: #007bff;
+    }
+    #calendarSection {
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    #calendarSection h2 {
+      margin-top: 0;
+      color: #2c3e50;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    /* Calendar grid with responsive columns */
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+
+    .calendar-grid div {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      padding: 10px;
+      min-height: 80px;
+      border-radius: 8px;
+      box-shadow: 0 0 4px rgba(0,0,0,0.05);
+      font-size: 14px;
+      box-sizing: border-box;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      max-width: 100%;
+    }
+
+    .calendar-grid .has-task {
+      background-color: #eaf6ff;
+      border-left: 4px solid #3498db;
+    }
+    .footer {
+      text-align: center;
+      padding: 15px;
+      background-color: #f0f0f0;
+      color: #555;
+      font-size: 14px;
+      position: relative;
+      bottom: 0;
+      width: 100%;
+      border-top: 1px solid #ddd;
+      margin-top: 40px;
+      border-radius: 0 0 10px 10px;
+    }
+    .currency-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 15px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      box-shadow: 0 0 4px rgba(0,0,0,0.05);
+    }
+
+    .currency-row img {
+      width: 60px;
+      height: auto;
+      margin-right: 10px;
+      border-radius: 4px;
+    }
+
+    .currency-row span {
+      flex: 1;
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    .currency-row input {
+      width: 200px;
+      padding: 10px 12px;   
+      font-size: 18px;
+      border-radius: 8px;
+      border: 2px solid #ccc;
+      text-align: center;
+      background-color: #fff;
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
+      font-weight: bold;
+    }
+
+    #currencySection h2 {
+      margin-top: 0;
+      color: #2c3e50;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .total {
+      margin-top: 20px;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      color: #007bff;
+    }
+
+    .footer p {
+      margin: 0;
+    }
+
+  </style>
+</head>
+<body>
+  <h1>🗓️ Demoody Task Reminder</h1>
+
+  <div class="top-nav">
+    <button id="homeTab" class="active">🏠 Home</button>
+    <button id="settingsTab">⚙️ Settings</button>
+    <button id="calendarTab">📅 Calendar</button>
+    <button id="currencyTab">💵 Currency Counter</button>
+  </div>
+
+  <main style="flex: 1;">
+    <!-- Home Section -->
+    <div id="homeSection" class="section">
+      <form id="taskForm">
+        <label for="title">Task Title</label>
+        <input type="text" id="title" placeholder="Enter task title" required />
+
+        <label for="description">Task Description</label>
+        <textarea id="description" rows="3" placeholder="Enter task details..." required></textarea>
+
+        <label for="datetime">Date & Time</label>
+        <input type="datetime-local" id="datetime" required />
+
+        <button type="submit">Save Task</button>
+      </form>
+
+      <div id="taskList">
+        <h3>📋 Upcoming Tasks</h3>
+        <!-- Task items added by renderer.js -->
+      </div>
+    </div>
+
+    <!-- Settings Section -->
+    <div id="settingsSection" class="section" style="display: none;">
+      <div class="settings">
+        <label for="intervalSelect">🔁 Reminder Interval:</label>
+        <select id="intervalSelect">
+
+          <option value="2">Every 2 Minutes</option>
+          <option value="3">Every 3 Minutes</option>
+          <option value="4">Every 4 Minutes</option>
+          <option value="5">Every 5 Minutes</option>
+          <option value="7">Every 7 Minutes</option>
+          <option value="10">Every 10 Minutes</option>
+          <option value="15">Every 15 Minutes</option>
+          <option value="30">Every 30 Minutes</option>
+          <option value="60">Every 60 Minutes</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Calendar Section -->
+    <div id="calendarSection" class="section" style="display: none;">
+      <h2>📅 Task Calendar</h2>
+      <div id="calendarGrid" class="calendar-grid"></div>
+    </div>
+
+    <!-- Currency Counter Section -->
+    <div id="currencySection" class="section" style="display: none;">
+      <h2>💵 Indian Currency Counter</h2>
+      <div id="counterForm">
+        <div class="total">Total: ₹<span id="totalValue">0</span></div>
+        <!-- Currency Rows -->
+         <!-- <div class="currency-row" style="background-color:#d1f0dc;"><img src="notes/500.png" alt="₹500" /><span>₹500</span><input type="number" min="0" data-value="500"></div> -->
+        <div class="currency-row" style="background-color:#d1f0dc;"><span>₹500</span><input type="number" min="0" data-value="500"></div>
+        <div class="currency-row" style="background-color:#fff3cd;"><span>₹200</span><input type="number" min="0" data-value="200"></div>
+        <div class="currency-row" style="background-color:#fde2e2;"><span>₹100</span><input type="number" min="0" data-value="100"></div>
+        <div class="currency-row" style="background-color:#f0d9ff;"><span>₹50</span><input type="number" min="0" data-value="50"></div>
+        <div class="currency-row" style="background-color:#daf5ff;"><span>₹20</span><input type="number" min="0" data-value="20"></div>
+        <div class="currency-row" style="background-color:#e6ffe6;"><span>₹10</span><input type="number" min="0" data-value="10"></div>
+        <div class="currency-row" style="background-color:#ffe6e6;"><span>₹5</span><input type="number" min="0" data-value="5"></div>
+        <div class="currency-row" style="background-color:#fff;"><span>₹2</span><input type="number" min="0" data-value="2"></div>
+        <div class="currency-row" style="background-color:#f1f1f1;"><span>₹1</span><input type="number" min="0" data-value="1"></div>
+      </div>
+
+    </div>
+
+
+  </main>
+  <footer class="footer">
+    <p>Made with ❤️ by Sk Wasim Akram</p>
+  </footer>
+  
+  <script src="renderer.js"></script>
+<script>
+  // Tab Switching Logic
+  const homeTab = document.getElementById('homeTab');
+  const settingsTab = document.getElementById('settingsTab');
+  const calendarTab = document.getElementById('calendarTab');
+  const currencyTab = document.getElementById('currencyTab');
+
+  const homeSection = document.getElementById('homeSection');
+  const settingsSection = document.getElementById('settingsSection');
+  const calendarSection = document.getElementById('calendarSection');
+  const currencySection = document.getElementById('currencySection');
+
+  function showSection(sectionToShow) {
+    homeSection.style.display = 'none';
+    settingsSection.style.display = 'none';
+    calendarSection.style.display = 'none';
+    currencySection.style.display = 'none';
+
+    homeTab.classList.remove('active');
+    settingsTab.classList.remove('active');
+    calendarTab.classList.remove('active');
+    currencyTab.classList.remove('active');
+
+    sectionToShow.style.display = 'block';
+  }
+
+  homeTab.addEventListener('click', () => {
+    showSection(homeSection);
+    homeTab.classList.add('active');
+  });
+
+  settingsTab.addEventListener('click', () => {
+    showSection(settingsSection);
+    settingsTab.classList.add('active');
+  });
+
+  calendarTab.addEventListener('click', () => {
+    showSection(calendarSection);
+    calendarTab.classList.add('active');
+  });
+
+  currencyTab.addEventListener('click', () => {
+    showSection(currencySection);
+    currencyTab.classList.add('active');
+  });
+
+  // Currency Calculator
+  const currencyInputs = document.querySelectorAll('#counterForm input');
+  const totalValue = document.getElementById('totalValue');
+
+  function updateTotal() {
+    let total = 0;
+    currencyInputs.forEach(input => {
+      const count = parseInt(input.value) || 0;
+      const value = parseInt(input.getAttribute('data-value'));
+      total += count * value;
+    });
+    // totalValue.textContent = total.toLocaleString('en-IN');;
+    totalValue.textContent = `₹ ${total.toLocaleString('en-IN')}`;
+  }
+
+  currencyInputs.forEach(input => {
+    input.addEventListener('input', updateTotal);
+  });
+
+  // Initially show Home section
+  showSection(homeSection);
+  homeTab.classList.add('active');
+</script>
+
+  <!-- <script>
+    // Tab switching
+    const homeTab = document.getElementById('homeTab');
+    const settingsTab = document.getElementById('settingsTab');
+    const homeSection = document.getElementById('homeSection');
+    const settingsSection = document.getElementById('settingsSection');
+
+    homeTab.addEventListener('click', () => {
+      homeSection.style.display = 'block';
+      settingsSection.style.display = 'none';
+      homeTab.classList.add('active');
+      settingsTab.classList.remove('active');
+    });
+
+    settingsTab.addEventListener('click', () => {
+      homeSection.style.display = 'none';
+      settingsSection.style.display = 'block';
+      settingsTab.classList.add('active');
+      homeTab.classList.remove('active');
+    });
+  </script> -->
+</body>
+</html>

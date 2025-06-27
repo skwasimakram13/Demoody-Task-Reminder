@@ -1,0 +1,46 @@
+{
+  "name": "demoody-task-reminder",
+  "version": "1.1.0",
+  "description": "Task Scheduler with Sound Reminders - Made by Demoody",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "rebuild": "electron-rebuild -f -w better-sqlite3 --version 28.2.0",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "author": "Demoody Official",
+  "license": "MIT",
+  "dependencies": {
+    "auto-launch": "^5.0.6",
+    "better-sqlite3": "^9.0.0"
+  },
+  "devDependencies": {
+    "electron": "^28.2.0",
+    "electron-builder": "^24.13.3",
+    "electron-rebuild": "^3.2.9"
+  },
+  "build": {
+    "appId": "com.demoody.taskreminder",
+    "productName": "Demoody Task Reminder",
+    "asar": true,
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Demoody Task Reminder"
+    }
+  }
+}
