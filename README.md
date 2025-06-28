@@ -113,7 +113,7 @@ npm run build
 
 > Few sample screenshot form the Desktop App:
 ```
-![Task Reminder](https://raw.githubusercontent.com/skwasimakram13/Demoody-Task-Reminder/main/screenshots/task-list.png)
+![Task Reminder](screenshots/task-list.png)
 ![Auto Reminter](screenshots/auto-reminder.png)
 ![Calendar View](screenshots/calendar-view.png)
 ![Currency Counter](screenshots/currency-counter.png)
