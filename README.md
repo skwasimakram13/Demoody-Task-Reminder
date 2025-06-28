@@ -111,20 +111,36 @@ npm run build
 
 ## 📸 Screenshots
 
-> Add screenshots here (drag-drop in GitHub or markdown image format):
+> Few sample screenshot form the Desktop App:
 ```
 ![Task Reminder](screenshots/task-list.png)
+![Auto Reminter](screenshots/auto-reminder.png)
 ![Calendar View](screenshots/calendar-view.png)
 ![Currency Counter](screenshots/currency-counter.png)
 ```
 
 ---
 
-## 🙋‍♂️ Author
+## Badges
+[![trophy](https://github-profile-trophy.vercel.app/?username=ryo-ma)](https://github.com/ryo-ma/github-profile-trophy)
 
-**👤 Sk Wasim Akram**  
-Instagram: [@wasim_akram_13](https://instagram.com/wasimA_akram_13)  
-Email: wasim@demoody.com
+[![trophy](https://github-profile-trophy.vercel.app/?username=ryo-ma&theme=onedark)](https://github.com/ryo-ma/github-profile-trophy)
+
+
+---
+
+## Author
+**Develope By** - [Sk Wasim Akram](https://github.com/skwasimakram13)
+
+- 👨‍💻 All of my projects are available at [https://skwasimakram.com](https://skwasimakram.com)
+
+- 📝 I regularly write articles on [https://blog.skwasimakram.com](https://blog.skwasimakram.com)
+
+- 📫 How to reach me **hello@skwasimakram.com**
+
+- 🧑‍💻 Google Developer Profile [https://g.dev/skwasimakram](https://g.dev/skwasimakram)
+
+- 📲 LinkedIn [https://www.linkedin.com/in/sk-wasim-akram](https://www.linkedin.com/in/sk-wasim-akram)
 
 ---
 
